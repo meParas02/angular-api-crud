@@ -1,0 +1,43 @@
+<mat-card style="width: 30%">
+  <!-- <form [formGroup]="bookForm" (ngSubmit)="adduser()"> -->
+    <form [formGroup]="bookForm">
+        <mat-form-field>
+            <mat-label>Title</mat-label>
+            <input matInput autocomplete="off" formControlName="title" />
+        </mat-form-field>
+        <br />
+        <mat-form-field>
+            <mat-label>Description</mat-label>
+            <input matInput autocomplete="off" formControlName="description" />
+    </mat-form-field>
+    <br />
+    <mat-radio-group aria-label="Published" formControlName="published">
+      <mat-radio-button value="true">Published</mat-radio-button>&nbsp;
+      <mat-radio-button value="false">Not Published</mat-radio-button>
+    </mat-radio-group>
+    <br />
+    <span *ngIf="editUser then edit else add"></span>
+        <ng-template #add>
+            <button mat-button color="primary" style="padding-left: 5px; margin-top: 15px;" (click)="adduser()">Add user</button>
+        </ng-template>
+        <ng-template #edit>
+            <button mat-button color="primary" style="padding-left: 5px; margin-top: 15px;" (click)="updateUser(userId)">Edit user</button>
+        </ng-template>
+  </form>
+</mat-card>
+
+
+<mat-grid-list cols="4" rowHeight="100px">
+  <div *ngFor="let book of bookData">
+    <mat-grid-tile>
+      Title: {{ book.title }}<br />
+      Discription: {{ book.description }} <br />
+      Published: {{ book.published }}
+
+      <button mat-button color="accent" (click)="getOneUser(book.id)">Edit</button>
+      <button mat-button color="warn" (click)="deleteUser(book.id)">
+        Delete
+      </button>
+    </mat-grid-tile>
+  </div>
+</mat-grid-list>
